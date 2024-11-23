@@ -3,10 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
-use Spatie\Permission\Contracts\Permission;
 use Spatie\Permission\PermissionRegistrar;
 
 class PermissionRoleSeeder extends Seeder
@@ -18,9 +17,13 @@ class PermissionRoleSeeder extends Seeder
     {
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
+        Permission::create(['name' => 'view user']);
+
         $superAdmin = Role::create(['name' => 'super admin']);
+        $superAdmin->givePermissionTo('view user');
 
         $admin = Role::create(['name' => 'admin']);
+        $admin->givePermissionTo('view user');
         $user = User::find(1);
         $user->assignRole('admin');
 
