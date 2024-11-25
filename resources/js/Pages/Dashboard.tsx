@@ -9,11 +9,6 @@ export default function Dashboard() {
                     <h2 className="text-xl font-semibold leading-tight text-gray-800">
                         Dashboard
                     </h2>
-                    <Link href={route("home")}>
-                        <button className="rounded-xl bg-indigo-500 w-32 h-8">
-                            Home
-                        </button>
-                    </Link>
                 </div>
             }
         >
