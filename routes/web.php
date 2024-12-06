@@ -35,9 +35,12 @@ Route::group(['middleware' => ['auth']], function() {
 });
 
 Route::prefix('/products')->name('products.')->group(function() {
-        Route::group(['middleware' => ['auth', 'role:admin']], function() {
-        Route::post('/', [ProductController::class, 'store'])->name('products.store');
-        Route::get('/add', [ProductController::class, 'add'])->name('products.add');
+    Route::group(['middleware' => ['auth', 'role:admin']], function() {
+        Route::get('/add', [ProductController::class, 'add']);
+        Route::get('/{prdocuts}', [ProductController::class, 'show']);
+        Route::post('/', [ProductController::class, 'store']);
+        Route::delete('/{product}', [ProductController::class, 'destroy']);
+        Route::put('/{product}', [ProductController::class, 'update']);
     });
 });
 
