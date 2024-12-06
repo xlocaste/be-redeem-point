@@ -172,12 +172,14 @@ export default function Authenticated({
                         >
                             Dashboard
                         </ResponsiveNavLink>
+                        {user.role === 'admin' && (
                         <ResponsiveNavLink
                             href={route('admin.users')}
                             active={route().current('admin.users')}
                         >
                             Daftar Users
                         </ResponsiveNavLink>
+                        )}
                     </div>
 
                     <div className="border-t border-gray-200 pb-1 pt-4">
