@@ -33,10 +33,16 @@ export default function Authenticated({
                                 >
                                     Dashboard
                                 </NavLink>
+                                <NavLink
+                                    href={route('products.index')}
+                                    active={route().current('products.index')}
+                                >
+                                    Products
+                                </NavLink>
                             </div>
 
                             {user.role === 'admin' && (
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex sm:items-center">
+                            <div className="hidden sm:-my-px sm:ms-10 sm:flex sm:items-center">
                                 <Dropdown>
                                     <Dropdown.Trigger>
                                         <span className="inline-flex rounded-md">

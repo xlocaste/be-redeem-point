@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +28,17 @@ Route::middleware('auth')->group(function () {
 
 Route::group(['middleware' => ['auth', 'role:admin']], function() {
     Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users');
+});
+
+Route::group(['middleware' => ['auth']], function() {
+    Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+});
+
+Route::prefix('/products')->name('products.')->group(function() {
+        Route::group(['middleware' => ['auth', 'role:admin']], function() {
+        Route::post('/', [ProductController::class, 'store'])->name('products.store');
+        Route::get('/add', [ProductController::class, 'add'])->name('products.add');
+    });
 });
 
 require __DIR__.'/auth.php';
