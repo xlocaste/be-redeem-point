@@ -34,6 +34,8 @@ export default function Authenticated({
                                     Dashboard
                                 </NavLink>
                             </div>
+
+                            {user.role === 'admin' && (
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex sm:items-center">
                                 <Dropdown>
                                     <Dropdown.Trigger>
@@ -66,6 +68,7 @@ export default function Authenticated({
                                     </Dropdown.Content>
                                 </Dropdown>
                             </div>
+                            )}
                         </div>
 
                         <div className="hidden sm:ms-6 sm:flex sm:items-center">
