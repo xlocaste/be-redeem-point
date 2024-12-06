@@ -31,13 +31,15 @@ Route::group(['middleware' => ['auth', 'role:admin']], function() {
 });
 
 Route::group(['middleware' => ['auth']], function() {
-    Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+    Route::prefix('/products')->name('products.')->group(function() {
+        Route::get('/', [ProductController::class, 'index'])->name('index');
+        Route::get('/{prdocuts}', [ProductController::class, 'show']);
+    });
 });
 
 Route::prefix('/products')->name('products.')->group(function() {
     Route::group(['middleware' => ['auth', 'role:admin']], function() {
         Route::get('/add', [ProductController::class, 'add']);
-        Route::get('/{prdocuts}', [ProductController::class, 'show']);
         Route::post('/', [ProductController::class, 'store']);
         Route::delete('/{product}', [ProductController::class, 'destroy']);
         Route::put('/{product}', [ProductController::class, 'update']);
