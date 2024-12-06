@@ -18,17 +18,31 @@ class PermissionRoleSeeder extends Seeder
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
         Permission::create(['name' => 'view user']);
+        Permission::create(['name' => 'view product']);
 
         $superAdmin = Role::create(['name' => 'super admin']);
         $superAdmin->givePermissionTo('view user');
+        $superAdmin->givePermissionTo('view product');
 
         $admin = Role::create(['name' => 'admin']);
         $admin->givePermissionTo('view user');
-        $user = User::find(1);
-        $user->assignRole('admin');
+        $admin->givePermissionTo('view product');
 
         $user = Role::create(['name' => 'user']);
-        $user = User::find(2);
-        $user->assignRole('user');
+        $user->givePermissionTo('view product');
+
+        User::create([
+                'name' => 'admin',
+                'email' => 'admin@example.com',
+                'password' => bcrypt('password'),
+                'role' => 'admin',
+            ]);
+
+        User::create([
+                'name' => 'user',
+                'email' => 'user@example.com',
+                'password' => bcrypt('password'),
+                'role' => 'user',
+            ]);
     }
 }
