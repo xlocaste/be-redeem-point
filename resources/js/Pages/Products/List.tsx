@@ -40,7 +40,7 @@ const Products: React.FC<ProductsProps> = ({ products }) => {
             <div className="py-12">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <PrimaryButton>
-                    <Link href="/products/add">
+                    <Link href={route('products.add')}>
                         + Tambah Product
                     </Link>
                 </PrimaryButton>

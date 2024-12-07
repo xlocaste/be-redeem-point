@@ -32,18 +32,17 @@ Route::group(['middleware' => ['auth', 'role:admin']], function() {
 
 Route::group(['middleware' => ['auth']], function() {
     Route::prefix('/products')->name('products.')->group(function() {
+        Route::middleware(['role:admin'])->group(function() {
+            Route::get('/add', [ProductController::class, 'add'])->name('add');
+            Route::post('/', [ProductController::class, 'store'])->name('store');
+            Route::delete('/{product}', [ProductController::class, 'destroy']);
+            Route::put('/{product}', [ProductController::class, 'update']);
+        });
+
         Route::get('/', [ProductController::class, 'index'])->name('index');
-        Route::get('/{prdocuts}', [ProductController::class, 'show']);
+        Route::get('/{product}', [ProductController::class, 'show']);
     });
 });
 
-Route::prefix('/products')->name('products.')->group(function() {
-    Route::group(['middleware' => ['auth', 'role:admin']], function() {
-        Route::get('/add', [ProductController::class, 'add']);
-        Route::post('/', [ProductController::class, 'store']);
-        Route::delete('/{product}', [ProductController::class, 'destroy']);
-        Route::put('/{product}', [ProductController::class, 'update']);
-    });
-});
 
 require __DIR__.'/auth.php';
