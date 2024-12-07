@@ -42,7 +42,7 @@ const ProductDetail = ({ product }: { product: Product }) => {
                                 Add to Cart
                                 </button>
                             </div>
-                        </div>a
+                        </div>
                     </div>
                 </div>
             </div>
