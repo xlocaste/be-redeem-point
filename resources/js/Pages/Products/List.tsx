@@ -1,7 +1,9 @@
 import PrimaryButton from "@/Components/PrimaryButton";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link } from "@inertiajs/react";
+import { Head, Link, usePage } from "@inertiajs/react";
 import { Inertia } from '@inertiajs/inertia';
+import { AiOutlineDelete } from "react-icons/ai";
+import { FiEdit } from "react-icons/fi";
 
 interface Product {
     id: number;
@@ -17,6 +19,7 @@ interface ProductsProps {
 }
 
 const Products: React.FC<ProductsProps> = ({ products }) => {
+    const user = usePage().props.auth.user;
     const Delete = (id: number) => {
         if (window.confirm("Are you sure you want to delete this product?")) {
           Inertia.delete(`/products/${id}`);
@@ -24,6 +27,9 @@ const Products: React.FC<ProductsProps> = ({ products }) => {
       };
       const Details = (id: number) => {
         Inertia.get(`/products/${id}`);
+      };
+      const Update = (id: number) => {
+        Inertia.get(`/products/${id}/updated`);
       };
     return (
         <AuthenticatedLayout
@@ -39,11 +45,13 @@ const Products: React.FC<ProductsProps> = ({ products }) => {
 
             <div className="py-12">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                {user.role === 'admin' && (
                 <PrimaryButton>
                     <Link href={route('products.add')}>
                         + Tambah Product
                     </Link>
                 </PrimaryButton>
+                )}
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-4">
                     {products.map((product) => (
                         <div
@@ -71,12 +79,20 @@ const Products: React.FC<ProductsProps> = ({ products }) => {
                                     >
                                     View Details
                                 </button>
-                                <button
-                                    className="text-red-500 hover:underline"
+                                <div className="flex gap-2">
+                                {user.role === 'admin' && (
+                                <>
+                                    <AiOutlineDelete
+                                    className="text-gray-800 hover:underline"
                                     onClick={() => Delete(product.id)}
-                                    >
-                                    Delete
-                                </button>
+                                    />
+                                    <FiEdit
+                                    className="text-gray-800 hover:underline"
+                                    onClick={() => Update(product.id)}
+                                    />
+                                </>
+                                )}
+                                </div>
                             </div>
                         </div>
                         </div>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Inertia } from '@inertiajs/inertia';
 import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link } from "@inertiajs/react";
+import { Head } from "@inertiajs/react";
 
 const AddProduct: React.FC = () => {
   const [nama, setNama] = useState('');
@@ -33,7 +33,7 @@ const AddProduct: React.FC = () => {
             header={
                 <div className="flex gap-4">
                     <h2 className="text-xl font-semibold leading-tight text-gray-800">
-                        Products
+                        Tambah Produk
                     </h2>
                 </div>
             }
@@ -43,7 +43,6 @@ const AddProduct: React.FC = () => {
             <div className="mx-auto max-w-7xl px-6 sm:px-6 lg:px-8">
                 <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 <div className="p-6 text-gray-900">
-                    <h2 className="text-xl font-semibold leading-tight text-gray-800 mb-6">Tambah Produk</h2>
                     <form onSubmit={handleSubmit}>
                     <div className="space-y-4">
                         <div>
