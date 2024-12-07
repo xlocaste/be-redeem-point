@@ -39,9 +39,9 @@ const AddProduct: React.FC = () => {
             }
         >
             <Head title="Produk" />
-            <div className="py-12">
+            <div className="py-8 md:py-12">
             <div className="mx-auto max-w-7xl px-6 sm:px-6 lg:px-8">
-                <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
+                <div className="overflow-hidden bg-white shadow-lg rounded-xl">
                 <div className="p-6 text-gray-900">
                     <form onSubmit={handleSubmit}>
                     <div className="space-y-4">

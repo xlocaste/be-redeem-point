@@ -37,7 +37,7 @@ export default function Authenticated({
                                     href={route('products.index')}
                                     active={route().current('products.index')}
                                 >
-                                    Products
+                                    Produk
                                 </NavLink>
                             </div>
 
@@ -177,6 +177,12 @@ export default function Authenticated({
                             active={route().current('dashboard')}
                         >
                             Dashboard
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route('products.index')}
+                            active={route().current('products.index')}
+                        >
+                            Produk
                         </ResponsiveNavLink>
                         {user.role === 'admin' && (
                         <ResponsiveNavLink
