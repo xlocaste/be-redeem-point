@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Product\ItemController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -30,8 +31,8 @@ Route::group(['middleware' => ['auth', 'role:admin']], function() {
     Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users');
 });
 
-Route::group(['middleware' => ['auth']], function() {
-    Route::prefix('/products')->name('products.')->group(function() {
+Route::prefix('/products')->name('products.')->group(function() {
+    Route::group(['middleware' => ['auth']], function() {
         Route::middleware(['role:admin'])->group(function() {
             Route::get('/add', [ProductController::class, 'add'])->name('add');
             Route::post('/', [ProductController::class, 'store'])->name('store');
@@ -40,10 +41,16 @@ Route::group(['middleware' => ['auth']], function() {
             Route::get('{product}/updated', [ProductController::class, 'updated'])->name('updated');
         });
 
-        Route::get('/', [ProductController::class, 'index'])->name('index');
         Route::get('/{product}', [ProductController::class, 'show']);
     });
+    Route::get('/', [ProductController::class, 'index'])->name('index');
 });
 
+Route::prefix('/items')->name('items.')->group(function() {
+    Route::group(['middleware' => ['auth']], function() {
+        
+        Route::get('/',[ItemController::class, 'index'])->name('index');
+    });
+});
 
 require __DIR__.'/auth.php';
