@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Product\ItemController;
 use App\Http\Controllers\Product\ProductController;
+use App\Http\Controllers\Product\ItemController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -40,17 +40,21 @@ Route::prefix('/products')->name('products.')->group(function() {
             Route::put('/{product}', [ProductController::class, 'update'])->name('update');
             Route::get('{product}/updated', [ProductController::class, 'updated'])->name('updated');
         });
-
-        Route::get('/{product}', [ProductController::class, 'show']);
     });
+    Route::get('/{product}', [ProductController::class, 'show']);
     Route::get('/', [ProductController::class, 'index'])->name('index');
 });
 
 Route::prefix('/items')->name('items.')->group(function() {
     Route::group(['middleware' => ['auth']], function() {
-        
-        Route::get('/',[ItemController::class, 'index'])->name('index');
+        Route::get('/add',[ItemController::class, 'add'])->name('add');
+        Route::post('/',[ItemController::class, 'store'])->name('store');
+        Route::delete('/{item}', [ItemController::class, 'destroy']);
+        Route::put('/{item}', [ItemController::class, 'update'])->name('update');
+        Route::get('{item}/updated', [ItemController::class, 'updated'])->name('updated');
     });
+    Route::get('/{item}', [ItemController::class, 'show']);
+    Route::get('/',[ItemController::class, 'index'])->name('index');
 });
 
 require __DIR__.'/auth.php';
