@@ -61,7 +61,7 @@ export default function Authenticated({
                                     </Dropdown.Trigger>
 
                                     <Dropdown.Content>
-                                        <Dropdown.Link href={route('items.index')}>
+                                        <Dropdown.Link href={route('products.index')}>
                                             Products
                                         </Dropdown.Link>
                                         <Dropdown.Link href={route('items.index')}>

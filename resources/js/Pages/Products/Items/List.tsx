@@ -47,7 +47,7 @@ const Items: React.FC<ItemsProps> = ({ items }) => {
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 {user.role === 'admin' && (
                 <PrimaryButton>
-                    <Link href={route('products.add')}>
+                    <Link href={route('items.add')}>
                         + Tambah Items
                     </Link>
                 </PrimaryButton>
