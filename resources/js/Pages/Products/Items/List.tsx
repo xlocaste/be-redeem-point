@@ -82,14 +82,18 @@ const Items: React.FC<ItemsProps> = ({ items }) => {
                                 <div className="flex gap-2">
                                 {user.role === 'admin' && (
                                 <>
+                                <button>
                                     <AiOutlineDelete
                                     className="text-gray-800 hover:underline"
                                     onClick={() => Delete(Item.id)}
                                     />
+                                </button>
+                                <button>
                                     <FiEdit
                                     className="text-gray-800 hover:underline"
                                     onClick={() => Update(Item.id)}
                                     />
+                                </button>
                                 </>
                                 )}
                                 </div>

@@ -15,4 +15,9 @@ class Product extends Model
         'harga',
         'stok',
     ];
+
+    public function user()
+    {
+        return $this->belongsToMany(User::class)->withPivot('quantity')->withTimestamps();
+    }
 }
