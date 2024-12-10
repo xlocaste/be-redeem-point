@@ -31,6 +31,7 @@ Route::prefix('/admin')->name('admin.')->group(function() {
     Route::group(['middleware' => ['auth', 'role:admin']], function() {
         Route::get('/users', [UserController::class, 'index'])->name('users');
         Route::get('/{user}', [UserController::class, 'show'])->name('detail');
+        Route::post('/{user}/product/store', [UserController::class, 'storeProduct'])->name('product.store');
     });
 });
 

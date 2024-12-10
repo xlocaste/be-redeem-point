@@ -1,7 +1,14 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import { Inertia } from "@inertiajs/inertia";
 import { Head } from "@inertiajs/react";
 import { IoMdAddCircle } from "react-icons/io";
 
+interface ProductsId {
+    id: number
+    nama: string
+    harga: number
+    stok: number
+}
 interface Product {
     id: number
     nama: string
@@ -18,9 +25,17 @@ interface Users {
 interface Props {
     user: Users
     products: Product[]
+    product: ProductsId[]
 }
 
-const UserDetail = ({ user, products }: Props) => {
+const UserDetail = ({ user, products, product }: Props) => {
+    const handleAddProduct = (productId: number) => {
+        if (productId) {
+            Inertia.post(route('admin.product.store', { user: user.id }), {
+                product_id: productId,
+            });
+        }
+    };
   return (
     <AuthenticatedLayout
             header={
@@ -35,13 +50,44 @@ const UserDetail = ({ user, products }: Props) => {
             <div className="py-8 px-4">
                 <div className="container mx-auto p-8 px-8 bg-white rounded-xl shadow-lg">
                     <div className="md:flex">
-                        <div className="md:w-2/3 ml-4 flex items-center">
+                        <div className="md:w-1/4 ml-4 flex items-center mr-4">
                             <div>
                                 <h1 className="text-3xl font-bold mb-2">{user.name}</h1>
                                 <p className="text-lg text-gray-700 mb-2">{user.email}</p>
                                 <p className="text-lg text-gray-700">Point :{user.point}</p>
                             </div>
                         </div>
+                        <table className="w-full text-left table-auto border-collapse border border-gray-200">
+                            <thead>
+                                <tr className="bg-gray-100 border-b border-gray-200 text-center">
+                                    <th>Nama Produk</th>
+                                    <th>Harga</th>
+                                    <th>Jumlah</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {product.length > 0 ? (
+                                    products.map((products) => (
+                                        <tr key={products.id}  className="border-b border-gray-200 text-center">
+                                            <td>{products.nama}</td>
+                                            <td>
+                                                {new Intl.NumberFormat('id-ID', {
+                                                    style: 'currency',
+                                                    currency: 'IDR',
+                                                }).format(Number(products.harga))}
+                                            </td>
+                                            <td>{products.stok}</td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan={3} className="text-center text-gray-600">
+                                            Tidak ada produk yang ditambahkan.
+                                        </td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
                     </div>
                     <div className="mt-10">
                         <h2 className="text-2xl font-semibold mb-4">Daftar Produk</h2>
@@ -66,11 +112,11 @@ const UserDetail = ({ user, products }: Props) => {
                                         </td>
                                         <td className="px-4 py-2">{product.stok}</td>
                                         <td className="px-4 py-2">
-                                            <button>
+                                            <button onClick={() => handleAddProduct(product.id)}>
                                             <IoMdAddCircle />
                                             </button>
                                         </td>
-                                    </tr> 
+                                    </tr>
                                 ))
                             ) : (
                                 <tr>

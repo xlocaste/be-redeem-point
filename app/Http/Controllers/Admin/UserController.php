@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Product\Admin\StoreRequest;
 use App\Models\Product;
 use App\Models\User;
 use Inertia\Inertia;
@@ -20,13 +21,27 @@ class UserController extends Controller
 
     public function show($user)
     {
-        $user = User::findOrFail($user);
+        $user = User::with('products')->findOrFail($user);
 
         $products = Product::all();
 
+        // $products = $user->products;
+
         return Inertia::render('Admin/Detail', [
             'user' => $user,
-            'products' => $products
+            'products' => $products,
+            'product' => $user->products,
         ]);
+    }
+
+    public function storeProduct(StoreRequest $request, $user)
+    {
+        $user = User::findOrFail($user);
+
+        $product = Product::findOrFail($request['product_id']);
+
+        $user->products()->attach($product->id);
+
+        $user->save();
     }
 }
