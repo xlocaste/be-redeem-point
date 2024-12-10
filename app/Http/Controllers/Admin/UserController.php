@@ -12,7 +12,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::with('product')->get();
+        $users = User::all();
 
         return Inertia::render('Admin/Users', [
             'users' => $users,
@@ -36,11 +36,17 @@ class UserController extends Controller
     {
         $user = User::findOrFail($user);
 
-        $product = Product::findOrFail($request['product_id']);
+        $productId = $request->input('product_id');
 
-        $user->products()->attach($product->id);
+        $quantityProduct = $user->products()->where('product_id', $productId)->first();
 
-        $user->save();
+        if ($quantityProduct) {
+            $user->products()->updateExistingPivot($productId, [
+                'quantity' => $quantityProduct->pivot->quantity + 1,
+            ]);
+        } else {
+            $user->products()->attach($productId, ['quantity' => 1]);
+        }
     }
 
     public function dropProduct(User $user, $productId)

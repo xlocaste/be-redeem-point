@@ -8,7 +8,9 @@ interface ProductsId {
     id: number
     nama: string
     harga: number
-    stok: number
+    pivot: {
+        quantity: number
+    }
 }
 interface Product {
     id: number
@@ -85,7 +87,7 @@ const UserDetail = ({ user, products, product }: Props) => {
                                                     currency: 'IDR',
                                                 }).format(Number(cart.harga))}
                                             </td>
-                                            <td>{cart.stok}</td>
+                                            <td>{cart.pivot.quantity}</td>
                                             <td>
                                                 <button onClick={() => dropCart(cart.id)}>
                                                     <AiFillMinusCircle />
@@ -95,7 +97,7 @@ const UserDetail = ({ user, products, product }: Props) => {
                                     ))
                                 ) : (
                                     <tr>
-                                        <td colSpan={3} className="text-center text-gray-600">
+                                        <td colSpan={4} className="text-center text-gray-600">
                                             Tidak ada produk yang ditambahkan.
                                         </td>
                                     </tr>
@@ -134,7 +136,7 @@ const UserDetail = ({ user, products, product }: Props) => {
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan={3} className="px-4 py-2 text-center text-gray-600">
+                                    <td colSpan={5} className="px-4 py-2 text-center text-gray-600">
                                         Tidak ada produk tersedia.
                                     </td>
                                 </tr>
