@@ -2,6 +2,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Inertia } from "@inertiajs/inertia";
 import { Head } from "@inertiajs/react";
 import { IoMdAddCircle } from "react-icons/io";
+import { AiFillMinusCircle } from "react-icons/ai";
 
 interface ProductsId {
     id: number
@@ -29,13 +30,20 @@ interface Props {
 }
 
 const UserDetail = ({ user, products, product }: Props) => {
-    const handleAddProduct = (productId: number) => {
+    const addCart = (productId: number) => {
         if (productId) {
             Inertia.post(route('admin.product.store', { user: user.id }), {
                 product_id: productId,
             });
         }
     };
+    const dropCart = (productId: number) => {
+        if (productId) {
+          Inertia.post(route("admin.product.drop", { user: user.id, productId }), {
+            product_id: productId,
+          });
+        }
+      };
   return (
     <AuthenticatedLayout
             header={
@@ -63,20 +71,26 @@ const UserDetail = ({ user, products, product }: Props) => {
                                     <th>Nama Produk</th>
                                     <th>Harga</th>
                                     <th>Jumlah</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {product.length > 0 ? (
-                                    products.map((products) => (
-                                        <tr key={products.id}  className="border-b border-gray-200 text-center">
-                                            <td>{products.nama}</td>
+                                    product.map((cart) => (
+                                        <tr key={cart.id}  className="border-b border-gray-200 text-center">
+                                            <td>{cart.nama}</td>
                                             <td>
                                                 {new Intl.NumberFormat('id-ID', {
                                                     style: 'currency',
                                                     currency: 'IDR',
-                                                }).format(Number(products.harga))}
+                                                }).format(Number(cart.harga))}
                                             </td>
-                                            <td>{products.stok}</td>
+                                            <td>{cart.stok}</td>
+                                            <td>
+                                                <button onClick={() => dropCart(cart.id)}>
+                                                    <AiFillMinusCircle />
+                                                </button>
+                                            </td>
                                         </tr>
                                     ))
                                 ) : (
@@ -112,7 +126,7 @@ const UserDetail = ({ user, products, product }: Props) => {
                                         </td>
                                         <td className="px-4 py-2">{product.stok}</td>
                                         <td className="px-4 py-2">
-                                            <button onClick={() => handleAddProduct(product.id)}>
+                                            <button onClick={() => addCart(product.id)}>
                                             <IoMdAddCircle />
                                             </button>
                                         </td>

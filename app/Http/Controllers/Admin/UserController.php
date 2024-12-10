@@ -25,8 +25,6 @@ class UserController extends Controller
 
         $products = Product::all();
 
-        // $products = $user->products;
-
         return Inertia::render('Admin/Detail', [
             'user' => $user,
             'products' => $products,
@@ -43,5 +41,10 @@ class UserController extends Controller
         $user->products()->attach($product->id);
 
         $user->save();
+    }
+
+    public function dropProduct(User $user, $productId)
+    {
+        $user->products()->detach($productId);
     }
 }
