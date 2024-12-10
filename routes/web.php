@@ -27,8 +27,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::group(['middleware' => ['auth', 'role:admin']], function() {
-    Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users');
+Route::prefix('/admin')->name('admin.')->group(function() {
+    Route::group(['middleware' => ['auth', 'role:admin']], function() {
+        Route::get('/users', [UserController::class, 'index'])->name('users');
+        Route::get('/{user}', [UserController::class, 'show'])->name('detail');
+    });
 });
 
 Route::prefix('/products')->name('products.')->group(function() {

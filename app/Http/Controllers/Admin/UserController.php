@@ -16,4 +16,13 @@ class UserController extends Controller
             'users' => $users,
         ]);
     }
+
+    public function show($user)
+    {
+        $user = User::findOrFail($user);
+
+        return Inertia::render('Admin/Detail', [
+            'user' => $user
+        ]);
+    }
 }

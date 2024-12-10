@@ -1,10 +1,13 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import { Inertia } from "@inertiajs/inertia";
 import { Head, Link } from "@inertiajs/react";
+import { FiEdit } from "react-icons/fi";
 
 interface User {
     id: number;
     name: string;
     email: string;
+    point: number;
   }
 
   interface UsersProps {
@@ -12,6 +15,9 @@ interface User {
   }
 
   const Users: React.FC<UsersProps> = ({ users }) => {
+    const Details = (id: number) => {
+        Inertia.get(`/admin/${id}`);
+      };
     return (
         <AuthenticatedLayout
             header={
@@ -35,6 +41,7 @@ interface User {
                             <th>ID</th>
                             <th>Nama</th>
                             <th>Email</th>
+                            <th>Point</th>
                             <th>Action</th>
                             </tr>
                         </thead>
@@ -44,8 +51,13 @@ interface User {
                                 <td>{user.id}</td>
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
+                                <td>{user.point}</td>
                                 <td>
-                                <button>Edit</button>
+                                    <button>
+                                    <FiEdit
+                                    onClick={() => Details(user.id)}
+                                    />
+                                    </button>
                                 </td>
                             </tr>
                             ))}
