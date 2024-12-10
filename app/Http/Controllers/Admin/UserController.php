@@ -51,6 +51,16 @@ class UserController extends Controller
 
     public function dropProduct(User $user, $productId)
     {
-        $user->products()->detach($productId);
+        $product = $user->products()->where('product_id', $productId)->first();
+
+        if ($product) {
+            if ($product->pivot->quantity > 1) {
+                $user->products()->updateExistingPivot($productId, [
+                    'quantity' => $product->pivot->quantity - 1,
+                ]);
+            } else {
+                $user->products()->detach($productId);
+            }
+        }
     }
 }
