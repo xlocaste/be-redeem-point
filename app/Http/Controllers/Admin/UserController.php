@@ -68,4 +68,20 @@ class UserController extends Controller
             }
         }
     }
+
+    public function checkOut($user)
+    {
+        $user = User::with('products')->findOrFail($user);
+
+        $totalPoints = 0;
+
+        foreach ($user->products as $product) {
+            $totalPoints += $product->pivot->quantity * $product->point;
+        }
+
+        $user->point += $totalPoints;
+        $user->save();
+
+        $user->products()->detach();
+    }
 }

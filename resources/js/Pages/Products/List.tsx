@@ -12,6 +12,7 @@ interface Product {
     deskripsi: string;
     harga: string;
     stok: string;
+    point: string;
 }
 
 interface ProductsProps {
@@ -43,8 +44,8 @@ const Products: React.FC<ProductsProps> = ({ products }) => {
         >
             <Head title="Produk" />
 
-            <div className="py-12">
-                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="bg-white p-8 m-4 rounded-xl shadow-lg">
+                <div className="mx-auto">
                 {user.role === 'admin' && (
                 <PrimaryButton>
                     <Link href={route('products.add')}>
@@ -69,8 +70,9 @@ const Products: React.FC<ProductsProps> = ({ products }) => {
                             <h3 className="text-lg font-semibold text-gray-800">{product.nama}</h3>
                             <p className="text-sm text-gray-500">{product.deskripsi}</p>
                             <div className="mt-4">
-                            <p className="text-gray-700">Harga: {new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(Number(product.harga))}</p>
+                                <p className="text-gray-700">Harga: {new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(Number(product.harga))}</p>
                                 <p className="text-gray-700">Stok: {product.stok}</p>
+                                <p className="text-gray-700">Point: {product.point}</p>
                             </div>
                             <div className="mt-4 flex justify-between items-center">
                                 <button

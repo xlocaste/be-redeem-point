@@ -26,7 +26,8 @@ class StoreRequest extends FormRequest
             'nama'=>['required'],
             'deskripsi'=>['nullable'],
             'harga'=>['required'],
-            'stok'=>['required']
+            'stok'=>['required'],
+            'point'=>['required'],
         ];
     }
 }

@@ -44,6 +44,7 @@ class ProductController extends Controller
             'deskripsi' => $request->deskripsi,
             'harga' => $request->harga,
             'stok' => $request->stok,
+            'point' => $request->point,
         ]);
 
         return redirect()->route('products.index');
@@ -68,7 +69,7 @@ class ProductController extends Controller
             'nama' => $request->nama,
             'deskripsi' => $request->deskripsi,
             'harga' => $request->harga,
-            'stok' => $request->stok,
+            'point' => $request->point,
         ]);
 
         return redirect()->route('products.index');

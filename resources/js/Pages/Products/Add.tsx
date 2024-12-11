@@ -9,6 +9,7 @@ const AddProduct: React.FC = () => {
   const [deskripsi, setDeskripsi] = useState('');
   const [harga, setHarga] = useState('');
   const [stok, setStok] = useState('');
+  const [point, setPoint] = useState('');
   const [image, setImage] = useState<File | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -19,6 +20,7 @@ const AddProduct: React.FC = () => {
     formData.append('deskripsi', deskripsi);
     formData.append('harga', harga);
     formData.append('stok', stok);
+    formData.append('point', point);
     if (image) {
         formData.append('image', image);
       } else {
@@ -39,9 +41,8 @@ const AddProduct: React.FC = () => {
             }
         >
             <Head title="Produk" />
-            <div className="py-8 md:py-12">
-            <div className="mx-auto max-w-7xl px-6 sm:px-6 lg:px-8">
-                <div className="overflow-hidden bg-white shadow-lg rounded-xl">
+            <div className="bg-white p-8 m-4 rounded-xl shadow-lg">
+                <div className="mx-auto">
                 <div className="p-6 text-gray-900">
                     <form onSubmit={handleSubmit}>
                     <div className="space-y-4">
@@ -92,6 +93,18 @@ const AddProduct: React.FC = () => {
                         </div>
 
                         <div>
+                        <label htmlFor="point" className="block text-sm font-medium text-gray-700">Point</label>
+                        <input
+                            type="number"
+                            id="point"
+                            value={point}
+                            onChange={(e) => setPoint(e.target.value)}
+                            className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+                            required
+                        />
+                        </div>
+
+                        <div>
                         <label htmlFor="image" className="block text-sm font-medium text-gray-700">Gambar Produk</label>
                         <input
                             type="file"
@@ -108,7 +121,6 @@ const AddProduct: React.FC = () => {
                         </div>
                     </div>
                     </form>
-                </div>
                 </div>
             </div>
             </div>
