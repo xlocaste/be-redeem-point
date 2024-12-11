@@ -25,10 +25,15 @@ class UserController extends Controller
 
         $products = Product::all();
 
+        $totalPrice = $user->products->sum(function ($product) {
+            return $product->pivot->quantity * $product->harga;
+        });
+
         return Inertia::render('Admin/Detail', [
             'user' => $user,
             'products' => $products,
             'product' => $user->products,
+            'totalPrice' => $totalPrice,
         ]);
     }
 

@@ -29,9 +29,10 @@ interface Props {
     user: Users
     products: Product[]
     product: ProductsId[]
+    totalPrice: number
 }
 
-const UserDetail = ({ user, products, product }: Props) => {
+const UserDetail = ({ user, products, product, totalPrice }: Props) => {
     const addCart = (productId: number) => {
         if (productId) {
             Inertia.post(route('admin.product.store', { user: user.id }), {
@@ -102,6 +103,16 @@ const UserDetail = ({ user, products, product }: Props) => {
                                         </td>
                                     </tr>
                                 )}
+                                        <tr>
+                                            <td></td>
+                                            <td className="text-center">
+                                            Total Harga:{" "}
+                                                {new Intl.NumberFormat('id-ID', {
+                                                    style: 'currency',
+                                                    currency: 'IDR',
+                                                }).format(totalPrice)}
+                                            </td>
+                                        </tr>
                             </tbody>
                         </table>
                     </div>
