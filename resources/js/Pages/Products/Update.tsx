@@ -46,8 +46,8 @@ const UpdateProduct: React.FC<Props> = ({ product }) => {
             }
         >
             <Head title="Produk" />
-            <div className='md:p-12 py-8 px-4'>
-                <div className="bg-white p-8 rounded-xl shadow-lg">
+            <div className="bg-white p-8 m-4 rounded-xl shadow-lg">
+                <div className="mx-auto">
                 <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="space-y-4">
                     <div>

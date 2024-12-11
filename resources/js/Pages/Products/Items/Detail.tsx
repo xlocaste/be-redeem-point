@@ -22,8 +22,8 @@ const ItemDetail = ({ item }: { item: Items }) => {
             }
         >
             <Head title="Produk" />
-            <div className="py-8 px-4">
-                <div className="container mx-auto p-8 px-8 bg-white rounded-xl shadow-lg">
+            <div className="bg-white p-8 m-4 rounded-xl shadow-lg">
+                <div className="mx-auto">
                     <div className="md:flex">
                         <div className="md:w-1/3 mb-4">
                             <img

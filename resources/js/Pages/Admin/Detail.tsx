@@ -67,8 +67,8 @@ const UserDetail = ({ user, products, product, totalPrice }: Props) => {
             }
         >
             <Head title="Produk" />
-            <div className="py-8 px-4">
-                <div className="container mx-auto p-8 px-8 bg-white rounded-xl shadow-lg">
+            <div className="bg-white p-8 m-4 rounded-xl shadow-lg">
+                <div className="mx-auto">
                     <div className="md:flex">
                         <div className="md:w-1/4 ml-4 flex items-center mr-4">
                             <div>

@@ -41,9 +41,8 @@ const AddProduct: React.FC = () => {
             }
         >
             <Head title="Produk" />
-            <div className="py-8 md:py-12">
-            <div className="mx-auto max-w-7xl px-6 sm:px-6 lg:px-8">
-                <div className="overflow-hidden bg-white shadow-lg rounded-xl">
+            <div className="bg-white p-8 m-4 rounded-xl shadow-lg">
+                <div className="mx-auto">
                 <div className="p-6 text-gray-900">
                     <form onSubmit={handleSubmit}>
                     <div className="space-y-4">
@@ -122,7 +121,6 @@ const AddProduct: React.FC = () => {
                         </div>
                     </div>
                     </form>
-                </div>
                 </div>
             </div>
             </div>
