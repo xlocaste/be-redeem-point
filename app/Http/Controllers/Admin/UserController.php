@@ -68,4 +68,11 @@ class UserController extends Controller
             }
         }
     }
+
+    public function checkOut($user)
+    {
+        $user = User::with('products')->findOrFail($user);
+
+        $user->products()->detach();
+    }
 }

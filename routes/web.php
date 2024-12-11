@@ -32,7 +32,8 @@ Route::prefix('/admin')->name('admin.')->group(function() {
         Route::get('/users', [UserController::class, 'index'])->name('users');
         Route::get('/{user}', [UserController::class, 'show'])->name('detail');
         Route::post('/{user}/product/store', [UserController::class, 'storeProduct'])->name('product.store');
-        Route::post('/user/{user}/drop-cart/{productId}', [UserController::class, 'dropProduct'])->name('product.drop');
+        Route::post('/{user}/drop-cart/{productId}', [UserController::class, 'dropProduct'])->name('product.drop');
+        Route::post('/{user}/checkout', [UserController::class, 'checkOut'])->name('product.checkout');
     });
 });
 

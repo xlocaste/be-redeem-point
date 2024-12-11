@@ -3,6 +3,8 @@ import { Inertia } from "@inertiajs/inertia";
 import { Head } from "@inertiajs/react";
 import { IoMdAddCircle } from "react-icons/io";
 import { AiFillMinusCircle } from "react-icons/ai";
+import { IoBagCheckOutline } from "react-icons/io5";
+import PrimaryButton from "@/Components/PrimaryButton";
 
 interface ProductsId {
     id: number
@@ -33,6 +35,13 @@ interface Props {
 }
 
 const UserDetail = ({ user, products, product, totalPrice }: Props) => {
+    const checkOut = ( productId: number) => {
+        if (productId) {
+            Inertia.post(route('admin.product.checkout', { user: user.id }), {
+                product_id: productId,
+            });
+        }
+    };
     const addCart = (productId: number) => {
         if (productId) {
             Inertia.post(route('admin.product.store', { user: user.id }), {
@@ -42,7 +51,7 @@ const UserDetail = ({ user, products, product, totalPrice }: Props) => {
     };
     const dropCart = (productId: number) => {
         if (productId) {
-          Inertia.post(route("admin.product.drop", { user: user.id, productId }), {
+          Inertia.post(route("admin.product.checkout", { user: user.id, productId }), {
             product_id: productId,
           });
         }
@@ -65,7 +74,11 @@ const UserDetail = ({ user, products, product, totalPrice }: Props) => {
                             <div>
                                 <h1 className="text-3xl font-bold mb-2">{user.name}</h1>
                                 <p className="text-lg text-gray-700 mb-2">{user.email}</p>
-                                <p className="text-lg text-gray-700">Point :{user.point}</p>
+                                <p className="text-lg text-gray-700 mb-2">Point :{user.point}</p>
+                                <PrimaryButton className="w-full gap-6" onClick={() => checkOut(user.id)}>
+                                    <IoBagCheckOutline />
+                                     Checkout
+                                </PrimaryButton>
                             </div>
                         </div>
                         <table className="w-full text-left table-auto border-collapse border border-gray-200">
@@ -103,10 +116,10 @@ const UserDetail = ({ user, products, product, totalPrice }: Props) => {
                                         </td>
                                     </tr>
                                 )}
-                                        <tr>
-                                            <td></td>
-                                            <td className="text-center">
-                                            Total Harga:{" "}
+                                        <tr className="border-b border-gray-200 text-center">
+                                            <td>Total Harga :</td>
+                                            <td colSpan={3} className="text-center">
+                                            {" "}
                                                 {new Intl.NumberFormat('id-ID', {
                                                     style: 'currency',
                                                     currency: 'IDR',
