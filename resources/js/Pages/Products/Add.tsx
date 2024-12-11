@@ -9,6 +9,7 @@ const AddProduct: React.FC = () => {
   const [deskripsi, setDeskripsi] = useState('');
   const [harga, setHarga] = useState('');
   const [stok, setStok] = useState('');
+  const [point, setPoint] = useState('');
   const [image, setImage] = useState<File | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -19,6 +20,7 @@ const AddProduct: React.FC = () => {
     formData.append('deskripsi', deskripsi);
     formData.append('harga', harga);
     formData.append('stok', stok);
+    formData.append('point', point);
     if (image) {
         formData.append('image', image);
       } else {
@@ -86,6 +88,18 @@ const AddProduct: React.FC = () => {
                             id="stok"
                             value={stok}
                             onChange={(e) => setStok(e.target.value)}
+                            className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+                            required
+                        />
+                        </div>
+
+                        <div>
+                        <label htmlFor="point" className="block text-sm font-medium text-gray-700">Point</label>
+                        <input
+                            type="number"
+                            id="point"
+                            value={point}
+                            onChange={(e) => setPoint(e.target.value)}
                             className="mt-1 p-2 w-full border border-gray-300 rounded-md"
                             required
                         />

@@ -14,6 +14,7 @@ class Product extends Model
         'deskripsi',
         'harga',
         'stok',
+        'point',
     ];
 
     public function user()

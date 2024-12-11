@@ -9,6 +9,7 @@ interface Product {
   deskripsi: string;
   harga: string;
   stok: number;
+  point: number;
 }
 
 interface Props {
@@ -21,6 +22,7 @@ const UpdateProduct: React.FC<Props> = ({ product }) => {
     deskripsi: product.deskripsi,
     harga: product.harga,
     stok: product.stok,
+    point: product.point,
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -91,6 +93,18 @@ const UpdateProduct: React.FC<Props> = ({ product }) => {
                         id="stok"
                         name="stok"
                         value={formData.stok}
+                        onChange={handleChange}
+                        className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+                    />
+                    </div>
+
+                    <div>
+                    <label htmlFor="point" className="block text-sm font-medium text-gray-700">Pointk</label>
+                    <input
+                        type="number"
+                        id="point"
+                        name="point"
+                        value={formData.point}
                         onChange={handleChange}
                         className="mt-1 p-2 w-full border border-gray-300 rounded-md"
                     />
